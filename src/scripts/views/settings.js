@@ -3,43 +3,60 @@ import Backbone from 'backbone'
 import STORE from '../store'
 import ACTIONS from '../actions'
 
+import Header from './components/header'
+
 var Settings = React.createClass({
+	componentWillMount: function() {
+		ACTIONS.fetchAllData()
+		STORE.on('dataUpdated', () => {
+			this.setState(STORE.data)
+		})
+	},
 	getInitialState: function() {
-		return {
-			showTeacherForm: false,
-			showStudentForm: false
-		}
+		return STORE.data
+	},
+	componentWillUnmount: function() {
+		STORE.off()
 	},
 	_handleTeacherForm: function(){
-		this.setState({
-			showTeacherForm: this.state.showTeacherForm ? false : true,
-			showStudentForm: this.state.showStudentForm = false
-		})
+		ACTIONS.showTeacherForm()
 	},
 	_handleStudentForm: function(){
-		this.setState({
-			showStudentForm: this.state.showStudentForm ? false : true,
-			showTeacherForm: this.state.showTeacherForm = false
-		})
+		ACTIONS.showStudentForm()
 	},
 	render: function() {
 		return (
 			<div className='dashboard-container'>
+				<Header />
 				<h1>Settings</h1>
-				<div className='dash-buttons'>
+				<div className='settings-buttons'>
 					<button onClick={this._handleTeacherForm}>
-						<div className='teacher-button'>
+						<div className='teacher-button-settings'>
 							<p>Add New Teacher</p>
 						</div>
 					</button>
 					<button onClick={this._handleStudentForm}>
-						<div className='student-button'>
+						<div className='student-button-settings'>
 							<p>Add New Student</p>
 						</div>
 					</button>
+					<Reset students={this.state.studentCollection}/>
 					<TeacherForm teacherForm={this.state.showTeacherForm}/>
 					<StudentForm studentForm={this.state.showStudentForm}/>
 				</div>
+			</div>
+		)
+	}
+})
+
+var Reset = React.createClass({
+	_handleReset: function() {
+		ACTIONS.resetStudentsStage(this.props.students)
+	},
+	render: function(){
+		return (
+			<div>
+				<button onClick={this._handleReset}>Reset Student Stages</button>
 			</div>
 		)
 	}
@@ -50,8 +67,9 @@ var TeacherForm = React.createClass({
 		event.preventDefault()
 		var formInput = event.target
 		var teacherData = {
-			firstName: formInput.studentFirstName.value,
-			lastName: formInput.studentLastName.value
+			prefix: formInput.prefix.value.toLowerCase(),
+			firstName: formInput.teacherFirstName.value.toLowerCase(),
+			lastName: formInput.teacherLastName.value.toLowerCase()
 		}
 		ACTIONS.addTeacher(teacherData)
 		formInput.reset()
@@ -62,10 +80,16 @@ var TeacherForm = React.createClass({
 			<div>
 				<h3>New Teacher Form</h3>
 				<form onSubmit={this._handleTeacherSubmit}>
+					<p>Prefix</p>
+					<select name="prefix" >
+						<option></option>
+		 				<option value="Mr.">Mr.</option>
+		 				<option value="Ms.">Ms.</option>
+		 			</select>
 					<p>First Name</p>
-					<input name='studentFirstName' type='text' />
+					<input name='teacherFirstName' type='text'/>
 					<p>Last Name</p>
-					<input name='studentLastName' type='text' /> <br /> <br />
+					<input name='teacherLastName' type='text' /> <br /> <br />
 					<input type='submit' value='submit' />
 				</form>
 			</div>
@@ -81,8 +105,9 @@ var StudentForm = React.createClass({
 		event.preventDefault()
 		var formInput = event.target
 		var studentData = {
-			firstName: formInput.firstName.value,
-			lastName: formInput.lastName.value
+			firstName: formInput.firstName.value.toLowerCase(),
+			lastName: formInput.lastName.value.toLowerCase(),
+			authDrivers: formInput.authDrivers.value
 		}
 		ACTIONS.addStudent(studentData)
 
@@ -98,6 +123,8 @@ var StudentForm = React.createClass({
 					<input name='firstName' type='text' />
 					<p>Last Name</p>
 					<input name='lastName' type='text' />
+					<p>Authorized Drivers</p>
+					<input name='authDrivers' type='text' />
 					<p>Teacher</p>
 					<select name='teacher'>
 					  <option></option>

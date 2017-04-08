@@ -27,8 +27,8 @@ var LoginComponent = React.createClass({
 								<input name='password' type='password' placeholder='PASSWORD' />
 								<input name='submit' type="submit" value="LOG IN" className='log-in-button'/>
 							</form>
+							<p>Don't have an account? &nbsp; <button onClick={this._handleClick}>Register</button></p>
 						</div>
-						<p>Don't have an account? &nbsp; <button onClick={this._handleClick}>Register</button></p>
 					</div>
 				)
 			}

@@ -6,11 +6,16 @@ var STORE = Object.assign({}, Backbone.Events, {
 	data: {
 		teacherCollection: new TeacherCollection(),
 		studentCollection: new StudentCollection(),
+		searchStudents: new StudentCollection(),
 		showLogin: true,
 		showRegister: false,
 		showTeacherModal: true,
+		showMyClassModal: false,
+		showTeacherForm: false,
+		showStudentForm: false,
 		activeID: '',
-		teacher_id: ''
+		teacher_id: '',
+		student_id: ''
 	},
 
 	get: function(prop) {

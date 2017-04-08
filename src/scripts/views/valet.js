@@ -4,9 +4,12 @@ import STORE from '../store'
 import ACTIONS from '../actions'
 
 import StudentQueue from './components/queue'
+import Header from './components/header'
+import Footer from './components/footer'
 
 var Valet = React.createClass({
 	componentWillMount: function() {
+		console.log('run')
 		ACTIONS.fetchAllData()
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
@@ -18,16 +21,39 @@ var Valet = React.createClass({
 	componentWillUnmount: function() {
 		STORE.off()
 	},
+	_handleType: function(e){
+		ACTIONS.autoSearch(e.target.value)
+	},
 	render: function() {
-		console.log(this.state.studentCollection)
+		var date = new Date()
 		return (
 			<div className='valet-container'>
-				<h1>Valet View</h1>
-				<input type='text' />
-				<StudentValet 
-					studentCollection={this.state.studentCollection}
-					activeID={this.state.activeID} />
-				<StudentQueue />
+				<div className='page-header'>
+					<h4>ValetView</h4>
+				</div>
+				<div className='post-header'>
+					<a href='#dashboard'>
+						<div className='home-icon'><i className="material-icons">home</i></div>
+					</a>
+					<a href='#dashboard'>
+						<p>Dashboard</p>
+					</a>
+					<small>{moment(date)}</small>
+				</div>
+				<div className='valet-wrapper'>
+					<div className='student-valet-wrapper'>
+						<input type='text' placeholder='Search by last name...' onKeyUp={this._handleType}/>
+						<StudentValet 
+							studentCollection={this.state.studentCollection}
+							activeID={this.state.activeID} />
+					</div>
+					<div className='queue-wrapper'>
+						<StudentQueue 
+							studentCollection={this.state.studentCollection}
+							activeID={this.state.activeID} />
+					</div>
+				</div>
+				
 			</div>
 		)
 	}

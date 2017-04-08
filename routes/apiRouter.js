@@ -84,7 +84,7 @@ var Student = require('../db/schema.js').Student
         })
       })
     .put('/student/:_id', function(request, response){
-      Student.findByIdAndUpdate(request.params._id, request.body, function(error, record){
+      Student.findByIdAndUpdate(request.params._id, request.body, {new: true}, function(error, record){
           if (error) {
             response.status(500).send(error)
           }
@@ -92,7 +92,7 @@ var Student = require('../db/schema.js').Student
             response.status(400).send('no record found with that id')
           }
           else {
-            response.json(Object.assign({},request.body,record))
+            response.json(record)
           }
       })
     })

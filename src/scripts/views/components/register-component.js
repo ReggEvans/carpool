@@ -42,8 +42,8 @@ var RegisterComponent = React.createClass({
 							<input name='password' type='password' id='input-row' placeholder='PASSWORD' /> <br />
 							<input name='submit' type="submit" value="REGISTER" className='log-in-button'/><br />
 						</form>
+						<p>Already registered? &nbsp; <button onClick={this._handleClick}>Login</button></p>
 					</div>
-					<p>Already registered? &nbsp; <button onClick={this._handleClick}>Login</button></p>
 				</div>
 			)
 		}

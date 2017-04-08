@@ -1,8 +1,9 @@
-//-------------------------------------------------------------
+//=============================================================
 // CONSTANTS
-//-------------------------------------------------------------
+//=============================================================
 $header-blue: #0095D3; 
 $header-green: #00BA9B;
+$icon-green: #00D5C3;
 $red: #D7263D;
 $orange: #F46036;
 $purple: #2E294E;
@@ -55,9 +56,61 @@ button:focus {
 	outline: none;
 }
 
-//-------------------------------------------------------------
+//=============================================================
+// HEADER
+//=============================================================
+.page-header {
+	height: 65px;
+	width: 100%;
+	background: $icon-green;
+	color: #fff;
+	position: relative;
+
+	h4 {
+		font-weight: 500;
+		padding: 15px 25px;
+	}
+}
+
+.post-header {
+	height: 40px;
+	width: 100%;
+	background-color: #242C3F;
+	color: #fff;
+
+	.home-icon {
+		display: inline-block;
+		padding: 8px 0 0 20px;
+		color: $icon-green;
+	}
+
+	p {
+		font-weight: 300;
+		vertical-align: top;
+		padding: 12px 0 0 5px;
+		display: inline-block;
+	}
+
+	a {
+		text-decoration: none;
+		color: #fff;
+	}
+}
+
+//=============================================================
+// FOOTER
+//=============================================================
+.footer {
+	height: 50px;
+	width: 100%;
+	background: linear-gradient(to bottom right, $header-green, $header-blue );
+	position: fixed;
+	bottom: 0;
+}
+
+//=============================================================
 // SPLASH PAGE
-//-------------------------------------------------------------
+//=============================================================
 // SPLASH PAGE - HEADER //
 .splash-header {
 	height: 100px;
@@ -113,9 +166,9 @@ button:focus {
 	position: relative;
 }
 
-//-------------------------------------------------------------
+//=============================================================
 // LOGIN COMPONENT
-//-------------------------------------------------------------
+//=============================================================
 .login-component {
 	color: #fff;
 	background: linear-gradient(to bottom right, #00B4A5, #00A8B6);
@@ -123,8 +176,8 @@ button:focus {
 	border-radius: 5px;
 	width: 450px;
 	position: absolute;
-    right: 100px;
-    top: 200px;
+    right: 75px;
+    top: 150px;
     opacity:0;
     animation:slideIn ease-in 1;
     animation-fill-mode:forwards;
@@ -132,7 +185,7 @@ button:focus {
 
     @keyframes slideIn {
 	    from {right: 0px; opacity: 0}
-	    to {right: 100px; opacity: 1}
+	    to {right: 75px; opacity: 1}
 	}
 
 	button {
@@ -161,7 +214,7 @@ button:focus {
 // LOGIN FORM STYLE //
 .login-form-wrapper {
 	width: 360px;
-	margin: 40px auto;
+	margin: 25px auto;
 
 	input {
 		border: 1px solid $header-green;
@@ -193,7 +246,7 @@ button:focus {
 // REGISTER FORM STYLE //
 .register-form-wrapper {
 	width: 360px;
-	margin: 40px auto;
+	margin: 25px auto;
 
 	input {
 		border: 1px solid $header-green;
@@ -227,6 +280,10 @@ button:focus {
 		text-shadow: 1px 1px #000;
 	}
 
+	p {
+		margin-top: 10px;
+	}
+
 	.log-in-button {
 		font-size: 14px;
 		color: #fff;
@@ -242,23 +299,247 @@ button:focus {
 	}
 }
 
-//-------------------------------------------------------------
-// FOOTER
-//-------------------------------------------------------------
-.footer {
-	height: 75px;
-	width: 100%;
-	background: linear-gradient(to bottom right, $header-green, $header-blue );
-	position: fixed;
-	bottom: 0;
+//=============================================================
+// DASHBOARD PAGE
+//=============================================================
+.dash-container {
+	background: linear-gradient(to right bottom, #515D75, #333A4A) no-repeat;
+	height: 100vh;
 }
 
-////////////////
+.dash-header {
+	height: 130px;
+	width: 100%;
+	background: linear-gradient(to bottom right, $header-blue, $header-green);
+	box-shadow: 0 5px 10px 0px #333;
+	color: #fff;
+	position: relative;
 
+	h2 {
+		font-weight: 700;
+		text-transform: uppercase;
+		position: absolute;
+		top: 25px;
+		left: 100px;
+	}
+
+	h5 {
+		font-weight: 300;
+		text-transform: uppercase;
+		position: absolute;
+		top: 80px;
+		left: 103px;
+		color: #1E2633;
+	}
+
+	p {
+		font-weight: 300;
+		text-transform: uppercase;
+		position: absolute;
+		float: right;
+		bottom: 10px;
+		right: 50px;
+	}
+
+	.in-title {
+		font-weight: 300;
+	}
+}
+
+.dash-buttons {
+	width: 90%;
+	margin: 25px auto;
+	text-align: center;
+}
+
+.button {
+	display: inline-block;
+	width: 250px;
+	height: 150px;
+	margin: 20px;
+	color: #fff;
+	border-radius: 20px;
+	box-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+
+	p {
+		font-weight: 300;
+		font-size: 20px;
+		text-transform: uppercase;
+		margin-top: 50px;
+		text-shadow: 1px 1px #333;
+	}
+}
+
+.valet-button {
+	background: #E74E3E;
+	border-top: 8px solid #EB6E60;
+	border-bottom: 8px solid #CC2B19;
+}
+
+.myClass-button {
+	background: #EEA033;
+	border-top: 8px solid #F2B25A;
+	border-bottom: 8px solid #D48311;
+}
+
+.myProfile-button {
+	background: #85C644;
+	border-top: 8px solid #A6D576;
+	border-bottom: 8px solid #669C30;
+}
+
+.teacher-button {
+	background: #546B8B;
+	border-top: 8px solid #7087A9;
+	border-bottom: 8px solid #435670;
+}
+
+.student-button {
+	background: #00BA9B;
+	border-top: 8px solid #00e6bf;
+	border-bottom: 8px solid #00806a;
+}
+
+.settings-button {
+	background: #0095D3;
+	border-top: 8px solid #1abaff;
+	border-bottom: 8px solid #006b99;
+}
+
+//=============================================================
+// VALET PAGE
+//=============================================================
 .valet-container {
+	position: relative;
+	background: linear-gradient(to right bottom, #515D75, #333A4A) no-repeat;
+	height: 100vh;
+}
+
+.valet-student-list {
+	cursor: pointer;
+	text-transform: capitalize;
+}
+
+.valet-wrapper {
+	width: 100%;
+}
+
+.student-valet-wrapper {
+	width: 70%;
+	display: inline-block;
+
+	input {
+		font-weight: 300;
+		width: 100%;
+		height: 40px;
+		padding: 8px 8px 8px 20px;
+		border: none;
+		background-color: rgba(255,255,255,0.8);
+		font-size: 16px;
+		box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
+	}
+
+	p {
+		font-weight: 300;
+		font-size: 18px;
+		padding: 18px 8px 18px 20px;
+		color: #fff;
+		border-bottom: 1px solid #1E2633;
+	}
+}
+
+//=============================================================
+// QUEUE
+//=============================================================
+.queue-wrapper {
+	width: 30%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.queue-container {
+	background-color: #1E2633;
+	height: 84vh;
+	box-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+
+	h6 {
+		font-weight: 300;
+		color: $icon-green;
+		text-align: center;
+		height: 40px;
+		text-transform: uppercase;
+		padding: 7px;
+		border-bottom: 1px solid #000;
+
+	}
+
+	p {
+		font-weight: 300;
+		font-size: 18px;
+		padding: 18px 8px 18px 15px;
+		color: #fff;
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+
+.student-queue-list {
+	border-bottom: 1px solid #000;
 	position: relative;
 }
 
+.status-transit {
+	height: 20px;
+	width: 20px;
+	border-radius: 10px;
+	display: inline-block;
+	margin-left: 15px;
+	background: #00BA9B;
+	border-top: 2px solid #00e6bf;
+	border-bottom: 2px solid #00806a;
+	box-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+	vertical-align: middle;
+}
+.status-arrival {
+	height: 20px;
+	width: 20px;
+	border-radius: 10px;
+	display: inline-block;
+	margin-left: 15px;
+	background: #0095D3;
+	border-top: 2px solid #1abaff;
+	border-bottom: 2px solid #006b99;
+	box-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+	vertical-align: middle;
+}
+
+#small-transit {
+	font-size: 12px;
+	color: #00BA9B;
+	position: absolute;
+	left: 35px;
+	top: 22px;
+}
+
+#small-arrival {
+	font-size: 12px;
+	color: #0095D3;
+	position: absolute;
+	left: 35px;
+	top: 22px;
+}
+
+
+//=============================================================
+// MyCLASS PAGE
+//=============================================================
+.myClass-student-list {
+	cursor: pointer;
+}
+
+//=============================================================
+// MODAL
+//=============================================================
 .hidden{
 	display: none;
 }
@@ -283,6 +564,7 @@ button:focus {
 	border: 2px solid black;
 	animation: popup ease-in .2s;
 	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.3),0 17px 50px 0 rgba(0,0,0,0.3);
+	z-index: 999;
 }
 
 @keyframes popup {
@@ -290,9 +572,12 @@ button:focus {
     to {transform: scale(1)}
 }
 
-.valet-student-list {
-	border: 1px dashed orange;
-	cursor: pointer;
+
+
+
+
+
+//temporary nav
+nav a {
+	padding: 10px;
 }
-
-

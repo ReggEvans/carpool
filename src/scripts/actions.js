@@ -44,6 +44,22 @@ var ACTIONS = {
 					studentCollection: studentColl
 				})
 			})
+			// setInterval(this.fetchAllData, 1000)
+	},
+	autoSearch: function(partial) {
+		var search = STORE.get('searchStudents')
+		search.fetch({
+			data: {
+				lastName: `/^${partial}/`
+			}
+		})
+			.then(function(resp) {
+				console.log(resp)
+				STORE.set({
+					searchStudents: search
+				})	
+			})
+
 	},
 	registerUser: function(userData) {
 		User.register(userData)
@@ -94,12 +110,40 @@ var ACTIONS = {
 		model.save()
 			.done(function(response) {
 				ACTIONS.fetchAllData()
+				ACTIONS.unsetActiveID()
 			})
 			.fail(function(error) {
 				alert('couldn\'t change the stage')
 				console.log(error)
 			})
-
+	},
+	resetStudentsStage: function(collection) {
+		collection.forEach(function(model){
+			model.set({
+				stage: 1
+			})
+			model.save()
+				.done(function(response) {
+					console.log('saved!')
+					ACTIONS.fetchAllData()
+				})
+				.fail(function(error) {
+					alert('couldn\'t change the stage')
+					console.log(error)
+			})
+		})
+	},
+	showTeacherForm: function() {
+		STORE.set({
+			showTeacherForm: true,
+			showStudentForm: false
+		})
+	},
+	showStudentForm: function() {
+		STORE.set({
+			showTeacherForm: false,
+			showStudentForm: true
+		})
 	},
 	getTeacherID: function(id) {
 		STORE.set({

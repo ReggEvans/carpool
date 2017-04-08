@@ -18,8 +18,12 @@ var Dashboard = React.createClass({
 	},
 	render: function() {
 		return (
-			<div className='dashboard-container'>
-				<h1>Dashboard</h1>
+			<div className='dash-container'>
+				<div className='dash-header'>
+					<h2><span className='in-title'>Kinder</span>Q</h2>
+					<h5>DASHBOARD</h5>
+					<p>Hi, (user-name here)!</p>
+				</div>
 				<div className='dash-buttons'>
 					<a href='#valet'>
 						<div className='button valet-button'>
@@ -52,6 +56,7 @@ var Dashboard = React.createClass({
 						</div>
 					</a>
 				</div>
+				<div className='footer'></div>
 			</div>
 		)
 	}
