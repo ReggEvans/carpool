@@ -44,7 +44,7 @@ var ACTIONS = {
 					studentCollection: studentColl
 				})
 			})
-			// setInterval(this.fetchAllData, 1000)
+			setInterval(this.fetchAllData, 1000)
 	},
 	autoSearch: function(partial) {
 		var search = STORE.get('searchStudents')

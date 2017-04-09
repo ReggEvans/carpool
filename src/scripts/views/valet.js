@@ -9,7 +9,6 @@ import Footer from './components/footer'
 
 var Valet = React.createClass({
 	componentWillMount: function() {
-		console.log('run')
 		ACTIONS.fetchAllData()
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
@@ -38,7 +37,9 @@ var Valet = React.createClass({
 					<a href='#dashboard'>
 						<p>Dashboard</p>
 					</a>
-					<small>{moment(date)}</small>
+					<div className='date'>
+						<p>{moment(date).format('MMMM Do YYYY')}</p>
+					</div>
 				</div>
 				<div className='valet-wrapper'>
 					<div className='student-valet-wrapper'>
@@ -96,10 +97,15 @@ var StudentValetList = React.createClass({
 				<div>
 					<div className={modalBackground}>
 						<div className={valetPopUp}>
-							<h3>Modal Test</h3>
-							<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
+							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
+							<div className='driver-list'>
+								<div className='driver-title'>
+									<p>Authorized Drivers</p>
+								</div>
+								<p><span className='arrow'>&#8680;</span> &nbsp; Ms. Test Driver</p>
+							</div>
 							<button onClick={this._handleIncreaseStage}>RIDE ARRIVED</button>
-							<button onClick={ACTIONS.unsetActiveID}>CANCEL</button>
+							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>
 					<div onClick={this._handleClick} className='valet-student-list'>

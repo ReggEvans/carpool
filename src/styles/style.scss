@@ -95,6 +95,17 @@ button:focus {
 		text-decoration: none;
 		color: #fff;
 	}
+
+	.date {
+		float: right;
+		color: #fff;
+		margin-right: 40px;
+		
+		p {
+			font-weight: 300;
+			font-size: 14px;
+		}
+	}
 }
 
 //=============================================================
@@ -418,6 +429,15 @@ button:focus {
 .valet-student-list {
 	cursor: pointer;
 	text-transform: capitalize;
+
+	p {
+		font-weight: 300;
+		font-size: 18px;
+		padding: 18px 8px 18px 20px;
+		color: #fff;
+		border-bottom: 1px dashed #343c4b;
+		border-left: 5px solid $icon-green;
+	}
 }
 
 .valet-wrapper {
@@ -437,14 +457,6 @@ button:focus {
 		background-color: rgba(255,255,255,0.8);
 		font-size: 16px;
 		box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
-	}
-
-	p {
-		font-weight: 300;
-		font-size: 18px;
-		padding: 18px 8px 18px 20px;
-		color: #fff;
-		border-bottom: 1px solid #1E2633;
 	}
 }
 
@@ -556,20 +568,82 @@ button:focus {
 .active {
 	position: absolute;
 	display: block;
-	top: 100px;
-	left: 500px;
-	width: 300px;
-	height: 400px;
-	background-color: white;
-	border: 2px solid black;
+	top: 125px;
+	margin-left: 25%;
+	width: 400px;
+	border-radius: 5px;
+	background: linear-gradient(to right bottom, #515D75, #333A4A) no-repeat;
 	animation: popup ease-in .2s;
-	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.3),0 17px 50px 0 rgba(0,0,0,0.3);
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.5),0 17px 50px 0 rgba(0,0,0,0.5);
 	z-index: 999;
+
+		h5 {
+			background: linear-gradient(to bottom right, #00B4A5, #00A8B6);
+			padding: 15px;
+			color: #fff;
+			font-weight: 300;
+			text-transform: uppercase;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+
+		button {
+			width: 200px;
+			height: 50px;
+			font-size: 15px;
+			text-align: center;
+			display: block;
+			margin-left: 50%;
+			margin-top: 30px;
+			margin-bottom: 30px;
+			transform: translate(-50%);
+			font-family: 'Lato';
+			font-size: 14px;
+			color: #fff;
+			background: linear-gradient($header-blue, #007db3);
+			border: none;
+			cursor: pointer;
+			border-radius: 5px;
+			box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+		}
+
+		#cancel {
+			background: linear-gradient($red, #ad1f32);
+		}
 }
 
 @keyframes popup {
     from {transform: scale(.5)}
     to {transform: scale(1)}
+}
+
+.driver-list {
+	width: 100%;
+	
+	.driver-title {
+		background-color: #1E2633;
+		color: #fff;
+		font-weight: 300;
+		text-align: center;
+		text-transform: uppercase;
+
+		p {
+			padding: 5px;
+			font-size: 12px;
+		}
+	}
+
+	p {
+		text-align: center;
+		padding: 5px;
+		color: #fff;
+		font-weight: 300;
+	}
+
+	.arrow {
+		color: $icon-green;
+		transform: translate(-10%);
+	}
 }
 
 
