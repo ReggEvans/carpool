@@ -9,8 +9,8 @@ import Header from './components/header'
 
 var Class = React.createClass({
 	componentWillMount: function() {
-		console.log('run')
 		ACTIONS.fetchAllData()
+		ACTIONS.fetchTeacherData()
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
 		})
@@ -22,17 +22,37 @@ var Class = React.createClass({
 		STORE.off()
 	},
 	render: function() {
+		var date = new Date()
+		var teacherCollection = this.state.teacherCollection
+		var teacher_id = this.state.teacher_id
 		return (
-			<div>
-				<Header />
+			<div className='class-container'>
+				<div className='page-header'>
+					<h4>MyClass</h4>
+					<button onClick={ACTIONS.changeTeacher} className='change-teacher'><i className="material-icons md-light md-36">account_box</i></button>
+				</div>
+				<div className='post-header'>
+					<a href='#dashboard'>
+						<div className='home-icon'><i className="material-icons">home</i></div>
+					</a>
+					<a href='#dashboard'>
+						<p>Dashboard</p>
+					</a>
+					<div className='date'>
+						<p>{moment(date).format('MMMM Do YYYY')}</p>
+					</div>
+				</div>
 				<TeacherModal 
 					teachers={this.state.teacherCollection}
-					teacherModalState={this.state.showTeacherModal} />
-				<h1>MyClass</h1>
-				<StudentGroup 
-					teacher_id={this.state.teacher_id}
-					students={this.state.studentCollection}
-					activeID={this.state.activeID} />
+					modalState={this.state.showModal}
+					teacherSearchCollection={this.state.searchTeachers} />
+				<div className='class-student-group'>
+					<p className='teacher-name'>{ACTIONS.getTeacherName(teacherCollection, teacher_id)}</p>
+					<StudentGroup 
+						teacher_id={this.state.teacher_id}
+						students={this.state.studentCollection}
+						activeID={this.state.activeID} />
+				</div>
 			</div>
 		)
 	}
@@ -67,53 +87,76 @@ var StudentList = React.createClass({
 		  ACTIONS.unsetActiveID()
 	},
 	render: function() {
-		var stageTwo = {
-			backgroundColor: 'lightblue'
-		}
-		var stageThree = {
-			backgroundColor: 'lightgreen'
-		}
 		var valetPopUp = 'hidden'
 		var modalBackground = 'hidden'
 		if (this.props.activeID === this.props.studentModel.get('_id')) {
 			valetPopUp = 'active'
 			modalBackground = 'modalBackground'
 		}
-		if (this.props.studentModel.get('stage') === 2) {
+		if (this.props.studentModel.get('stage') === 1) {
 			return (
-				<div>
+				<div className='class-list'>
 					<div className={modalBackground}>
 						<div className={valetPopUp}>
-							<h3>Modal Test</h3>
-							<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
-							<button onClick={this._handleIncreaseStage}>IN TRANSIT</button>
-							<button onClick={ACTIONS.unsetActiveID}>CANCEL</button>
+							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
+							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>
-					<div onClick={this._handleClick} className='valet-student-list' style={stageTwo}>
+					<div onClick={this._handleClick} className='class-student-list' id='stage-one'>
 						<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
+					</div>
+				</div>
+			)
+		}
+		if (this.props.studentModel.get('stage') === 2) {
+			return (
+				<div className='class-list'>
+					<div className={modalBackground}>
+						<div className={valetPopUp}>
+							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
+							<button onClick={this._handleIncreaseStage}>ON THE WAY!</button>
+							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
+						</div>
+					</div>
+					<div onClick={this._handleClick} className='class-student-list' id='stage-two'>
+						<div className='class-status-arrival'></div>
+						<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
+						<p id='class-small-arrival'>Your ride is here!</p>
 					</div>
 				</div>
 			)
 		}
 		if (this.props.studentModel.get('stage') === 3) {
 			return (
-				<div>
+				<div className='class-list'>
 					<div className={modalBackground}>
 						<div className={valetPopUp}>
-							<h3>Modal Test</h3>
-							<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
-							<button onClick={this._handleIncreaseStage}>IN TRANSIT</button>
-							<button onClick={ACTIONS.unsetActiveID}>CANCEL</button>
+							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
+							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>
-					<div onClick={this._handleClick} className='valet-student-list'  style={stageThree}>
+					<div onClick={this._handleClick} className='class-student-list' id='stage-three'>
+						<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
+						<p id='class-small-transit'>On the way!</p>
+					</div>
+				</div>
+			)
+		}
+		if (this.props.studentModel.get('stage') === 4) {
+			return (
+				<div className='class-list'>
+					<div className={modalBackground}>
+						<div className={valetPopUp}>
+							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
+							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
+						</div>
+					</div>
+					<div onClick={this._handleClick} className='class-student-list' id='stage-four'>
 						<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
 					</div>
 				</div>
 			)
 		}
-		return null
 	}
 })
 

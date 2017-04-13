@@ -44,7 +44,25 @@ var ACTIONS = {
 					studentCollection: studentColl
 				})
 			})
-			setInterval(this.fetchAllData, 1000)
+			// setInterval(this.fetchAllData, 1000)
+	},
+	fetchStudentData: function() {
+		var search = STORE.get('searchStudents')
+		search.fetch()
+			.then(function(){
+				STORE.set({
+					searchStudents: search
+				})
+			})
+	},
+	fetchTeacherData: function() {
+		var search = STORE.get('searchTeachers')
+		search.fetch()
+			.then(function(){
+				STORE.set({
+					searchTeachers: search
+				})
+			})
 	},
 	autoSearch: function(partial) {
 		var search = STORE.get('searchStudents')
@@ -59,13 +77,26 @@ var ACTIONS = {
 					searchStudents: search
 				})	
 			})
-
+	},
+	autoSearchTeacher: function(partial) {
+		var search = STORE.get('searchTeachers')
+		search.fetch({
+			data: {
+				lastName: `/^${partial}/`
+			}
+		})
+			.then(function(resp) {
+				console.log(resp)
+				STORE.set({
+					searchTeachers: search
+				})	
+			})
 	},
 	registerUser: function(userData) {
 		User.register(userData)
 			.done(
 				function(response) {
-					alert(`New user ${response.firstName} registered!`)
+					console.log(`New user ${response.firstName} registered!`)
 					console.log(response)
 					ACTIONS.loginUser(userData.email, userData.password)
 				}
@@ -81,7 +112,7 @@ var ACTIONS = {
 		User.login(email,password)
 			.done(
 				function(response) {
-					alert('Success logging in!')
+					console.log(`${response.firstName} logged in!`)
 					console.log(response)
 					location.hash = 'dashboard'
 				}
@@ -92,6 +123,21 @@ var ACTIONS = {
 					console.log(error)
 				}
 			)
+	},
+	logout: function(){
+		User.logout()
+		.done(
+			function(response){
+				console.log('Logged out')
+				location.hash = 'login'
+			}
+		)
+		.fail(
+			function(err){
+				console.log('Problem logging out')
+				console.log(err)
+			}
+		)
 	},
 	setActiveID : function(studentID) {
 		STORE.set({
@@ -147,11 +193,55 @@ var ACTIONS = {
 	},
 	getTeacherID: function(id) {
 		STORE.set({
-			showTeacherModal: false,
+			showModal: false,
 			teacher_id: id
 		})
 	},
+	changeTeacher: function() {
+		STORE.set({
+			showModal: true
+		})
+	},
+	showModal: function() {
+		STORE.set({
+			showModal: true,
+		})
+	},
+	cancelModal: function() {
+		STORE.set({
+			showModal: false,
+		})
+	},
+	showResetModal: function() {
+		STORE.set({
+			showResetModal: true,
+		})
+	},
+	cancelResetModal: function() {
+		STORE.set({
+			showResetModal: false,
+		})
+	},
+	getTeacherName: function(teacherColl, teacher_id) {
+		var teachers = teacherColl.models
+		for(var i = 0; i < teachers.length; i++) {
+			if (teachers[i].get('_id') === teacher_id) {
+				return `${teachers[i].get('firstName')} ${teachers[i].get('lastName')}'s Classroom`
+			}
+		}
+	},
+	loginName: function(){
+		if (User.getCurrentUser() === null){
+			return 'Welcome!'
+		}
+		else if (User.getCurrentUser().get('firstName') === undefined) {
+			return 'Welcome!'
+		}
+		return `Welcome ${User.getCurrentUser().get('firstName')}!`
+	},
 }
+
+setInterval(ACTIONS.fetchAllData, 1000)
 
 export default ACTIONS
 

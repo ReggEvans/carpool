@@ -57,15 +57,14 @@ var StudentQueueList = React.createClass({
 				<div>
 					<div className={modalBackground}>
 						<div className={valetPopUp}>
-							<h3>Modal Test</h3>
-							<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
-							<button onClick={ACTIONS.unsetActiveID}>CANCEL</button>
+							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
+							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>
 					<div className='student-queue-list' onClick={this._handleClick}>
 						<div className='status-arrival'></div>
 						<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p> <br/>
-						<p id='small-arrival'>Ride has arrived!</p>
+						<p id='small-arrival'>Your ride is here!</p>
 					</div>
 				</div>
 			)
@@ -75,16 +74,15 @@ var StudentQueueList = React.createClass({
 				<div>
 					<div className={modalBackground}>
 						<div className={valetPopUp}>
-							<h3>Modal Test</h3>
-							<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
-							<button onClick={this._handleIncreaseStage}>DEPARTED</button>
-							<button onClick={ACTIONS.unsetActiveID}>CANCEL</button>
+							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
+							<button onClick={this._handleIncreaseStage}>GOING HOME</button>
+							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>
 					<div className='student-queue-list' onClick={this._handleClick}>
 						<div className='status-transit'></div>
 						<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p> <br />
-						<p id='small-transit'>Student on the way!</p>
+						<p id='small-transit'>On the way!</p>
 					</div>
 				</div>
 			)

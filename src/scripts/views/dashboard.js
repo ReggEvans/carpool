@@ -2,6 +2,7 @@ import React from 'react'
 import Backbone from 'backbone'
 import STORE from '../store'
 import ACTIONS from '../actions'
+import User from '../models/userModel'
 
 var Dashboard = React.createClass({
 	componentWillMount: function() {
@@ -22,7 +23,7 @@ var Dashboard = React.createClass({
 				<div className='dash-header'>
 					<h2><span className='in-title'>Kinder</span>Q</h2>
 					<h5>DASHBOARD</h5>
-					<p>Hi, (user-name here)!</p>
+					<p>{ACTIONS.loginName()}</p>
 				</div>
 				<div className='dash-buttons'>
 					<a href='#valet'>
@@ -35,19 +36,19 @@ var Dashboard = React.createClass({
 							<p>My Class</p>
 						</div>
 					</a>
-					<a href='#profile'>
+			{/*}	<a href='#profile'>
 						<div className='button myProfile-button'>
 							<p>My Profile</p>
+						</div> 
+					</a> 					*/}
+					<a href='#students'>
+						<div className='button student-button'>
+							<p>All Students</p>
 						</div>
 					</a>
 					<a href='#teachers'>
 						<div className='button teacher-button'>
-							<p>View All Teachers</p>
-						</div>
-					</a>
-					<a href='#students'>
-						<div className='button student-button'>
-							<p>View All Students</p>
+							<p>All Teachers</p>
 						</div>
 					</a>
 					<a href='#settings'>

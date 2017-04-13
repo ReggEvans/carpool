@@ -4,22 +4,15 @@ import STORE from '../../store'
 import ACTIONS from '../../actions'
 
 var TeacherModal = React.createClass({
-	_handleType: function(e){
-	var input = e.target.value.toLowerCase()
-	ACTIONS.autoSearchTeacher(input)
-	},
 	render: function(){
 		var valetPopUp = 'active'
 		var modalBackground = 'modalBackground'
-		if (this.props.modalState) {
+		if (this.props.teacherModalState) {
 			return(
 				<div className={modalBackground}>
 					<div className={valetPopUp}>
-						<h5>Select a classroom</h5>
-						<input type='text' ref='input' placeholder='Search by last name...' className='teacherSearch' onKeyUp={this._handleType}/>
-						<TeacherGroup 
-							teachers={this.props.teachers}
-							searchTeachers={this.props.teacherSearchCollection} />
+						<h3>Modal Teacher Test</h3>
+						<TeacherGroup teachers={this.props.teachers} />
 						
 					</div>
 				</div>
@@ -38,7 +31,7 @@ var TeacherGroup = React.createClass({
 	render: function() {
 		return (
 			<div>
-				{this.props.searchTeachers.map(this._makeTeacherList)}
+				{this.props.teachers.map(this._makeTeacherList)}
 			</div>
 		)
 	}
@@ -50,15 +43,15 @@ var TeacherList = React.createClass({
 	},
 	render: function() {
 		return (
-			<div className='teacher-modal-list'>
-				<button id='teacher-modal-button' onClick={this._handleTeacherID}>
+			<div>
+				<button onClick={this._handleTeacherID}>
 					{this.props.teacherModel.get('firstName')}&nbsp;{this.props.teacherModel.get('lastName')}
 				</button>
-				<p className='scroll-text-right'>SCROLL &#8680;</p>
-				<p className='scroll-text-left'>&#8678; SCROLL</p>
 			</div>
 		)
 	}
 })
 
 export default TeacherModal
+
+

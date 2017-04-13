@@ -17,11 +17,27 @@ var Teachers = React.createClass({
 		STORE.off()
 	},
 	render: function() {
+		var date = new Date()
 		return (
-			<div className='dashboard-container'>
-				<h1>Teachers</h1>
-				<AllTeachers 
-					teachers={this.state.teacherCollection} />
+			<div className='all-teacher-container'>
+				<div className='page-header'>
+					<h4>Teachers</h4>
+				</div>
+				<div className='post-header'>
+					<a href='#dashboard'>
+						<div className='home-icon'><i className="material-icons">home</i></div>
+					</a>
+					<a href='#dashboard'>
+						<p>Dashboard</p>
+					</a>
+					<div className='date'>
+						<p>{moment(date).format('MMMM Do YYYY')}</p>
+					</div>
+				</div>
+				<div className='all-teacher-wrapper'>
+					<AllTeachers 
+						teachers={this.state.teacherCollection} />
+				</div>
 			</div>
 		)
 	}

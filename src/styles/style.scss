@@ -17,11 +17,13 @@ $blue-gray: #373F51;
 html {
 	font-family: 'Lato', sans-serif;
 	font-size: 16px;
+	overflow: hidden;
 }
 
 body {
 	margin: 0;
 	padding: 0;
+	overflow: hidden;
 }
 
 h1 {
@@ -56,13 +58,24 @@ button:focus {
 	outline: none;
 }
 
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.not-there {
+	display: none;
+}
+
 //=============================================================
 // HEADER
 //=============================================================
 .page-header {
 	height: 65px;
 	width: 100%;
-	background: $icon-green;
+	background: linear-gradient(to bottom right, $header-blue, $header-green);
 	color: #fff;
 	position: relative;
 
@@ -99,7 +112,7 @@ button:focus {
 	.date {
 		float: right;
 		color: #fff;
-		margin-right: 40px;
+		margin-right: 50px;
 		
 		p {
 			font-weight: 300;
@@ -349,7 +362,7 @@ button:focus {
 		position: absolute;
 		float: right;
 		bottom: 10px;
-		right: 50px;
+		right: 100px;
 	}
 
 	.in-title {
@@ -358,7 +371,8 @@ button:focus {
 }
 
 .dash-buttons {
-	width: 90%;
+	max-width: 950px;
+	min-width: 950px;
 	margin: 25px auto;
 	text-align: center;
 }
@@ -426,10 +440,13 @@ button:focus {
 	height: 100vh;
 }
 
+.student-overflow {
+	height: 78vh;
+	overflow: scroll;
+}
+
 .valet-student-list {
 	cursor: pointer;
-	text-transform: capitalize;
-
 	p {
 		font-weight: 300;
 		font-size: 18px;
@@ -437,6 +454,7 @@ button:focus {
 		color: #fff;
 		border-bottom: 1px dashed #343c4b;
 		border-left: 5px solid $icon-green;
+		text-transform: capitalize;
 	}
 }
 
@@ -450,14 +468,31 @@ button:focus {
 
 	input {
 		font-weight: 300;
-		width: 100%;
+		width: 85%;
 		height: 40px;
 		padding: 8px 8px 8px 20px;
 		border: none;
 		background-color: rgba(255,255,255,0.8);
 		font-size: 16px;
 		box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
+		vertical-align: bottom;
+		border-radius: none;
 	}
+
+	button {
+		width: 15%;
+		height:40px;
+		border: none;
+		background-color: $red;
+		color: #fff;
+		font-size: 14px;
+		font-family: 'Lato';
+		cursor: pointer;
+	}
+}
+
+.authDrivers {
+	text-transform: capitalize;
 }
 
 //=============================================================
@@ -473,6 +508,7 @@ button:focus {
 	background-color: #1E2633;
 	height: 84vh;
 	box-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+	overflow: scroll;
 
 	h6 {
 		font-weight: 300;
@@ -488,16 +524,18 @@ button:focus {
 	p {
 		font-weight: 300;
 		font-size: 18px;
-		padding: 18px 8px 18px 15px;
+		padding: 14px 8px 22px 15px;
 		color: #fff;
 		display: inline-block;
 		vertical-align: middle;
+		text-transform: capitalize;
 	}
 }
 
 .student-queue-list {
 	border-bottom: 1px solid #000;
 	position: relative;
+	cursor: pointer;
 }
 
 .status-transit {
@@ -530,7 +568,7 @@ button:focus {
 	color: #00BA9B;
 	position: absolute;
 	left: 35px;
-	top: 22px;
+	top: 24px;
 }
 
 #small-arrival {
@@ -538,16 +576,142 @@ button:focus {
 	color: #0095D3;
 	position: absolute;
 	left: 35px;
-	top: 22px;
+	top: 24px;
 }
 
 
 //=============================================================
 // MyCLASS PAGE
 //=============================================================
-.myClass-student-list {
+.class-container {
+	position: relative;
+	background: linear-gradient(to right bottom, #515D75, #333A4A) no-repeat;
+	height: 100vh;
+}
+
+.class-student-group {
+	max-width: 950px;
+	min-width: 950px;
+	margin: 30px auto;
+}
+
+.class-list {
+	display: inline-block;
+	width: 25%;
+}	
+
+.class-student-list {
+	cursor: pointer;
+	padding: 50px 20px;
+	text-align: center;
+	margin: 10px;
+	border-radius: 10px;
+	position: relative;
+
+	p {
+		font-size: 18px;
+		color: #fff;
+		text-shadow: 1px 1px #111;
+		text-transform: capitalize;
+	}
+
+	.class-status-arrival {
+		height: 20px;
+		width: 20px;
+		border-radius: 10px;
+		background: $red;
+		border-top: 2px solid #E74E3E;
+		border-bottom: 2px solid #CC2B19;
+		position: absolute;
+		top: 10px;
+		left: 15px;
+		box-shadow: 0 0 0 0 rgba(232, 76, 61, 0.7);
+		animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+		z-index: 1;
+	}
+	@keyframes pulse {to {box-shadow: 0 0 0 25px rgba(232, 76, 61, 0);}}
+	
+	#class-small-arrival {
+		font-size: 12px;
+		color: #ebebeb;
+		position: absolute;
+		bottom: 0px;
+		left: 0;
+		border-bottom-left-radius: 8px;
+		border-bottom-right-radius: 8px;
+		text-shadow: none;
+		background-color: #007db3;
+		padding: 10px;
+		width: 100%;
+	}
+
+	#class-small-transit {
+		font-size: 12px;
+		color: #ebebeb;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		border-bottom-left-radius: 8px;
+		border-bottom-right-radius: 8px;
+		text-shadow: none;
+		background-color: #009980;
+		padding: 10px;
+		width: 100%;
+	}
+}
+
+#stage-one {
+	background-color: #546B8B;
+	border-top: 4px solid #7087A9;
+	border-bottom: 4px solid #090b10;
+}
+
+#stage-two {
+	background-color: #0095D3;
+	border-top: 4px solid #1abaff;
+	border-bottom: 4px solid #006b99;
+}
+
+#stage-three {
+	background-color: #00BA9B;
+	border-top: 4px solid #00e6bf;
+	border-bottom: 4px solid #00806a;
+}
+
+#stage-four {
+	background-color: #3f485a;
+
+	p {
+		color: #515d75
+	}
+}
+
+.change-teacher {
+	background: transparent;
+	border: none;
+	position: absolute;
+	right: 40px;
+	top: 15px;
 	cursor: pointer;
 }
+
+.teacher-name {
+	color: $icon-green;
+	font-size: 20px;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	text-transform: capitalize;
+}
+
+.teacherSearch {
+	width: 100%;
+	height: 40px;
+	font-size: 14px;
+	padding: 10px;
+	border: none;
+	box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
+}
+
 
 //=============================================================
 // MODAL
@@ -571,6 +735,8 @@ button:focus {
 	top: 125px;
 	margin-left: 25%;
 	width: 400px;
+	height: 350px;
+	overflow: scroll;
 	border-radius: 5px;
 	background: linear-gradient(to right bottom, #515D75, #333A4A) no-repeat;
 	animation: popup ease-in .2s;
@@ -617,6 +783,33 @@ button:focus {
     to {transform: scale(1)}
 }
 
+#teacher-modal-button {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	width: 300px;
+	text-transform: capitalize;
+}
+
+.scroll-text-right {
+	position: absolute;
+	top: 175px;
+	right:-15px;
+	transform: rotate(90deg);
+	font-size: 18px;
+	color: #515D75;
+}
+
+.scroll-text-left {
+	position: absolute;
+	top: 175px;
+	left: -15px;
+	transform: rotate(-90deg);
+	font-size: 18px;
+	color: #5e6c87;
+}
+
+
+// Authorized Drivers //
 .driver-list {
 	width: 100%;
 	
@@ -643,15 +836,114 @@ button:focus {
 	.arrow {
 		color: $icon-green;
 		transform: translate(-10%);
+		vertical-align: bottom;
 	}
 }
 
 
-
-
-
-
-//temporary nav
-nav a {
-	padding: 10px;
+//=============================================================
+// ALL TEACHERS PAGE
+//=============================================================
+.all-teacher-container {
+	background: linear-gradient(to right bottom, #515D75, #333A4A) no-repeat;
+	height: 100vh;
 }
+
+.all-teacher-overflow {
+	height: 85vh;
+	overflow: scroll;
+}
+
+.all-teacher-wrapper {
+	
+	p {
+		font-weight: 300;
+		font-size: 18px;
+		padding: 18px 8px 18px 20px;
+		color: #fff;
+		border-bottom: 1px dashed #343c4b;
+		border-left: 5px solid $icon-green;
+		text-transform: capitalize;
+	}
+}
+
+//=============================================================
+// ALL STUDENT PAGE
+//=============================================================
+.all-student-container {
+	background: linear-gradient(to right bottom, #515D75, #333A4A) no-repeat;
+	height: 100vh;
+}
+
+.all-student-overflow {
+	height: 85vh;
+	overflow: scroll;
+}
+
+.all-student-wrapper {
+
+	p {
+		font-weight: 300;
+		font-size: 18px;
+		padding: 18px 8px 18px 20px;
+		color: #fff;
+		border-bottom: 1px dashed #343c4b;
+		border-left: 5px solid $icon-green;
+		text-transform: capitalize;
+	}
+}
+
+//=============================================================
+// SETTINGS PAGE
+//=============================================================
+.settings-container {
+	background: linear-gradient(to right bottom, #515D75, #333A4A) no-repeat;
+	height: 100vh;
+}
+
+.reset-div {
+	width: 100%;
+	text-align: center;
+	padding: 40px 0 20px 0;
+}
+
+.reset-button {
+	width: 300px;
+	height: 40px;
+	background: linear-gradient($red, #ad1f32);
+	color: #fff;
+	border-radius: 5px;
+	border: none;
+	font-size: 14px;
+	font-family: 'Lato';
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.settings-buttons {
+	text-align: center;
+}
+
+.add-button {
+	width: 300px;
+	height: 40px;
+	background: linear-gradient(#0095D3, #006b99);
+	color: #fff;
+	border-radius: 5px;
+	border: none;
+	font-family: 'Lato';
+	text-transform: uppercase;
+	cursor: pointer;
+	margin: 10px;
+
+	p {
+		font-size: 14px;
+	}
+}
+
+.reset-warning {
+	padding: 20px 40px;
+	color: #ebebeb;
+}
+
+

@@ -5,12 +5,13 @@ import {StudentCollection} from './models/studentModel'
 var STORE = Object.assign({}, Backbone.Events, {
 	data: {
 		teacherCollection: new TeacherCollection(),
+		searchTeachers: new TeacherCollection(),
 		studentCollection: new StudentCollection(),
 		searchStudents: new StudentCollection(),
 		showLogin: true,
 		showRegister: false,
-		showTeacherModal: true,
-		showMyClassModal: false,
+		showModal: true,
+		showResetModal: false,
 		showTeacherForm: false,
 		showStudentForm: false,
 		activeID: '',

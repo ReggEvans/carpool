@@ -17,10 +17,26 @@ var Students = React.createClass({
 		STORE.off()
 	},
 	render: function() {
+		var date = new Date()
 		return (
-			<div className='dashboard-container'>
-				<h1>Students</h1>
-				<AllStudents students={this.state.studentCollection} />
+			<div className='all-student-container'>
+				<div className='page-header'>
+					<h4>Students</h4>
+				</div>
+				<div className='post-header'>
+					<a href='#dashboard'>
+						<div className='home-icon'><i className="material-icons">home</i></div>
+					</a>
+					<a href='#dashboard'>
+						<p>Dashboard</p>
+					</a>
+					<div className='date'>
+						<p>{moment(date).format('MMMM Do YYYY')}</p>
+					</div>
+				</div>
+				<div className='all-student-wrapper'>
+					<AllStudents students={this.state.studentCollection} />
+				</div>
 			</div>
 		)
 	}
@@ -34,7 +50,7 @@ var AllStudents = React.createClass({
 	},
 	render: function() {
 		return (
-			<div>
+			<div className='all-student-overflow'>
 				{this.props.students.map(this._makeStudentList)}
 			</div>
 		)

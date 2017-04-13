@@ -27,7 +27,7 @@ const studentSchema = new mongoose.Schema({
   lastName:  	  { type: String, required: true },
   authDrivers:  [ String ],
   teacher_id :  { type: String },
-  stage:        { type: Number, default: 1}
+  stage:        { type: Number, default: 1, max: 4}
 })
 
 module.exports = {

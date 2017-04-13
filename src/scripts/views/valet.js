@@ -10,6 +10,7 @@ import Footer from './components/footer'
 var Valet = React.createClass({
 	componentWillMount: function() {
 		ACTIONS.fetchAllData()
+		ACTIONS.fetchStudentData()
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
 		})
@@ -21,7 +22,13 @@ var Valet = React.createClass({
 		STORE.off()
 	},
 	_handleType: function(e){
-		ACTIONS.autoSearch(e.target.value)
+		var input = e.target.value.toLowerCase()
+		ACTIONS.autoSearch(input)
+	},
+	_clearInput: function() {
+		this.refs.input.value = ''
+		ACTIONS.fetchStudentData()
+
 	},
 	render: function() {
 		var date = new Date()
@@ -43,9 +50,11 @@ var Valet = React.createClass({
 				</div>
 				<div className='valet-wrapper'>
 					<div className='student-valet-wrapper'>
-						<input type='text' placeholder='Search by last name...' onKeyUp={this._handleType}/>
+						<input type='text' ref='input' placeholder='Search by last name...' onKeyUp={this._handleType}/>
+						<button onClick={this._clearInput}>CLEAR</button>
 						<StudentValet 
 							studentCollection={this.state.studentCollection}
+							studentSearchCollection={this.state.searchStudents}
 							activeID={this.state.activeID} />
 					</div>
 					<div className='queue-wrapper'>
@@ -71,8 +80,8 @@ var StudentValet = React.createClass({
 	},
 	render: function() {
 		return (
-			<div>
-				{this.props.studentCollection.map(this._makeStudentList)}
+			<div className='student-overflow'>
+				{this.props.studentSearchCollection.map(this._makeStudentList)}
 			</div>
 		)
 	}
@@ -85,6 +94,9 @@ var StudentValetList = React.createClass({
 	_handleIncreaseStage: function() {
 		  ACTIONS.increaseStage(this.props.studentModel)
 	},
+	_listDrivers: function(driver) {
+			return <p className='authDrivers' key={driver}><i className="material-icons arrow">directions_car</i> {driver}</p>
+	},
 	render: function() {
 		var valetPopUp = 'hidden'
 		var modalBackground = 'hidden'
@@ -92,9 +104,11 @@ var StudentValetList = React.createClass({
 			valetPopUp = 'active'
 			modalBackground = 'modalBackground'
 		}
+		//var displayCLass = this.props.studentModel.get('stage') === 1 ? 'there' : 'not-there'
 		if (this.props.studentModel.get('stage') === 1) {
 			return (
 				<div>
+					{/*<div className={`modalBackground ${displayCLass}`}>*/}
 					<div className={modalBackground}>
 						<div className={valetPopUp}>
 							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
@@ -102,18 +116,21 @@ var StudentValetList = React.createClass({
 								<div className='driver-title'>
 									<p>Authorized Drivers</p>
 								</div>
-								<p><span className='arrow'>&#8680;</span> &nbsp; Ms. Test Driver</p>
+								<div>
+									{this.props.studentModel.get('authDrivers').map(this._listDrivers)}
+								</div>
 							</div>
-							<button onClick={this._handleIncreaseStage}>RIDE ARRIVED</button>
+							<button onClick={this._handleIncreaseStage}>RIDE HAS ARRIVED</button>
 							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>
+					{/*</div>*/}
 					<div onClick={this._handleClick} className='valet-student-list'>
 						<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
 					</div>
 				</div>
 			)
-		}
+		}	
 		return null
 	}
 })

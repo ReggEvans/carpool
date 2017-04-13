@@ -4,6 +4,7 @@ import STORE from '../store'
 import ACTIONS from '../actions'
 
 import Header from './components/header'
+import ResetModal from './components/resetModal'
 
 var Settings = React.createClass({
 	componentWillMount: function() {
@@ -25,22 +26,41 @@ var Settings = React.createClass({
 		ACTIONS.showStudentForm()
 	},
 	render: function() {
+		var date = new Date()
 		return (
-			<div className='dashboard-container'>
-				<Header />
-				<h1>Settings</h1>
+			<div className='settings-container'>
+				<div className='page-header'>
+					<h4>Settings</h4>
+					<button onClick={ACTIONS.logout} className='change-teacher'><i className="material-icons md-light md-36">highlight_off</i></button>
+				</div>
+				<div className='post-header'>
+					<a href='#dashboard'>
+						<div className='home-icon'><i className="material-icons">home</i></div>
+					</a>
+					<a href='#dashboard'>
+						<p>Dashboard</p>
+					</a>
+					<div className='date'>
+						<p>{moment(date).format('MMMM Do YYYY')}</p>
+					</div>
+				</div>
 				<div className='settings-buttons'>
-					<button onClick={this._handleTeacherForm}>
+					<Reset students={this.state.studentCollection}/>
+					<ResetModal 
+						modalState={this.state.showResetModal}
+						students={this.state.studentCollection}/>
+					<button className='add-button' onClick={this._handleTeacherForm}>
 						<div className='teacher-button-settings'>
 							<p>Add New Teacher</p>
 						</div>
 					</button>
-					<button onClick={this._handleStudentForm}>
+					<button className='add-button' onClick={this._handleStudentForm}>
 						<div className='student-button-settings'>
 							<p>Add New Student</p>
 						</div>
 					</button>
-					<Reset students={this.state.studentCollection}/>
+				</div>
+				<div className='settings-form-wrapper'>
 					<TeacherForm teacherForm={this.state.showTeacherForm}/>
 					<StudentForm studentForm={this.state.showStudentForm}/>
 				</div>
@@ -50,13 +70,13 @@ var Settings = React.createClass({
 })
 
 var Reset = React.createClass({
-	_handleReset: function() {
-		ACTIONS.resetStudentsStage(this.props.students)
+	_handleModal: function() {
+		ACTIONS.showResetModal()
 	},
 	render: function(){
 		return (
-			<div>
-				<button onClick={this._handleReset}>Reset Student Stages</button>
+			<div className='reset-div'>
+				<button className='reset-button' onClick={this._handleModal}>Reset Student Stages</button>
 			</div>
 		)
 	}

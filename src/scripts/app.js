@@ -26,7 +26,7 @@ const app = function() {
   		"*default" : "home"
   	},
   	home: function() {
-  		location.hash = "dashboard"
+  		location.hash = User.getCurrentUser() ? 'dashboard' : 'splash'
   	},
     handleSplashView: function() {
       ReactDOM.render(<Splash />, document.querySelector('.container'))
