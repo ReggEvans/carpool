@@ -3,7 +3,9 @@ import Backbone from 'backbone'
 import STORE from '../store'
 import ACTIONS from '../actions'
 
+import Profile from './profile'
 import StudentQueue from './components/queue'
+import Drivers from './components/drivers'
 import Header from './components/header'
 import Footer from './components/footer'
 
@@ -52,6 +54,10 @@ var Valet = React.createClass({
 					<div className='student-valet-wrapper'>
 						<input type='text' ref='input' placeholder='Search by last name...' onKeyUp={this._handleType}/>
 						<button onClick={this._clearInput}>CLEAR</button>
+						<Profile showProfileModal={this.state.showProfileModal}
+								 studentModel={this.state.studentModel}/>
+						<Drivers showDriverModal={this.state.showDriverModal}
+								 studentModel={this.state.studentModel}/>
 						<StudentValet 
 							studentCollection={this.state.studentCollection}
 							studentSearchCollection={this.state.searchStudents}
@@ -92,10 +98,13 @@ var StudentValetList = React.createClass({
 		ACTIONS.setActiveID(this.props.studentModel.get('_id'))
 	},
 	_handleIncreaseStage: function() {
-		  ACTIONS.increaseStage(this.props.studentModel)
+		ACTIONS.increaseStage(this.props.studentModel)
 	},
-	_listDrivers: function(driver) {
-			return <p className='authDrivers' key={driver}><i className="material-icons arrow">directions_car</i> {driver}</p>
+	_handleProfile: function() {
+		ACTIONS.showProfileModal(this.props.studentModel)	
+	},
+	_handleDriverModal: function() {
+		ACTIONS.showDriverModal(this.props.studentModel)	
 	},
 	render: function() {
 		var valetPopUp = 'hidden'
@@ -114,13 +123,11 @@ var StudentValetList = React.createClass({
 							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
 							<div className='driver-list'>
 								<div className='driver-title'>
-									<p>Authorized Drivers</p>
-								</div>
-								<div>
-									{this.props.studentModel.get('authDrivers').map(this._listDrivers)}
+									<p>Please Choose an option</p>
 								</div>
 							</div>
-							<button onClick={this._handleIncreaseStage}>RIDE HAS ARRIVED</button>
+							<button onClick={this._handleDriverModal}>RIDE HAS ARRIVED</button>
+							<button onClick={this._handleProfile}>STUDENT PROFILE</button>
 							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>

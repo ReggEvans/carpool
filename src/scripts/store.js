@@ -11,12 +11,15 @@ var STORE = Object.assign({}, Backbone.Events, {
 		showLogin: true,
 		showRegister: false,
 		showModal: true,
+		showProfileModal: false,
+		showDriverModal: false,
 		showResetModal: false,
 		showTeacherForm: false,
 		showStudentForm: false,
 		activeID: '',
 		teacher_id: '',
-		student_id: ''
+		student_id: '',
+		studentModel: {},
 	},
 
 	get: function(prop) {

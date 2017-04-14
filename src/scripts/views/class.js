@@ -7,8 +7,6 @@ import TeacherModal from './components/teacherModal'
 import MyClassModal from './components/myClassModal'
 import Header from './components/header'
 
-// checking branch 
-
 var Class = React.createClass({
 	componentWillMount: function() {
 		ACTIONS.fetchAllData()

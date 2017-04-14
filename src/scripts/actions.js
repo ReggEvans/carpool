@@ -156,7 +156,7 @@ var ACTIONS = {
 		model.save()
 			.done(function(response) {
 				ACTIONS.fetchAllData()
-				ACTIONS.unsetActiveID()
+				ACTIONS.cancelDriverModal()
 			})
 			.fail(function(error) {
 				alert('couldn\'t change the stage')
@@ -212,6 +212,30 @@ var ACTIONS = {
 			showModal: false,
 		})
 	},
+	showProfileModal: function(model) {
+		STORE.set({
+			showProfileModal: true,
+			studentModel: model,
+			activeID: ''
+		})
+	},
+	cancelProfileModal: function() {
+		STORE.set({
+			showProfileModal: false,
+		})
+	},
+	showDriverModal: function(model) {
+		STORE.set({
+			showDriverModal: true,
+			studentModel: model,
+			activeID: ''
+		})
+	},
+	cancelDriverModal: function() {
+		STORE.set({
+			showDriverModal: false,
+		})
+	},
 	showResetModal: function() {
 		STORE.set({
 			showResetModal: true,
@@ -241,7 +265,7 @@ var ACTIONS = {
 	},
 }
 
-setInterval(ACTIONS.fetchAllData, 1000)
+// setInterval(ACTIONS.fetchAllData, 1000)
 
 export default ACTIONS
 
