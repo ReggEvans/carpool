@@ -324,7 +324,7 @@ var ACTIONS = {
 	},
 }
 
-// setInterval(ACTIONS.fetchAllData, 1000)
+setInterval(ACTIONS.fetchAllData, 1000)
 
 export default ACTIONS
 
