@@ -19,8 +19,7 @@ var TeacherModal = React.createClass({
 						<input type='text' ref='input' placeholder='Search by last name...' className='teacherSearch' onKeyUp={this._handleType}/>
 						<TeacherGroup 
 							teachers={this.props.teachers}
-							searchTeachers={this.props.teacherSearchCollection} />
-						
+							searchTeachers={this.props.teacherSearchCollection} />	
 					</div>
 				</div>
 			)

@@ -2,11 +2,11 @@ import STORE from './store'
 import Backbone from 'backbone'
 import {Teacher} from './models/teacherModel'
 import {Student} from './models/studentModel'
+import {Pickup} from './models/pickupModel'
 import User from './models/userModel'
 
 var ACTIONS = {
 	addTeacher: function(teacherData) {
-		console.log(teacherData)
 		var newTeacher = new Teacher(teacherData)
 		newTeacher.save()
 			.then(
@@ -20,7 +20,6 @@ var ACTIONS = {
 			)
 	},
 	addStudent: function(studentData) {
-		console.log(studentData)
 		var newStudent = new Student(studentData)
 		newStudent.save()
 			.then(
@@ -36,15 +35,17 @@ var ACTIONS = {
 	fetchAllData: function() {
 		var teacherColl = STORE.get('teacherCollection')
 		var studentColl = STORE.get('studentCollection')
+		var pickupColl = STORE.get('pickupCollection')
 		teacherColl.fetch()
 		studentColl.fetch()
+		pickupColl.fetch()
 			.then(function(){
 				STORE.set({
 					teacherCollection: teacherColl,
-					studentCollection: studentColl
+					studentCollection: studentColl,
+					pickupCollection: pickupColl
 				})
 			})
-			// setInterval(this.fetchAllData, 1000)
 	},
 	fetchStudentData: function() {
 		var search = STORE.get('searchStudents')
@@ -149,6 +150,42 @@ var ACTIONS = {
 			activeID: null
 		})
 	},
+	saveZone: function(zoneNum, model) {
+		model.set({
+			zone: zoneNum
+		})
+		model.save()
+			.done(function(response) {
+			})
+			.fail(function(error) {
+				alert('couldn\'t change the zone')
+				console.log(error)
+			})
+	},
+	saveDriver: function(driver, model) {
+		model.set({
+			currentDriver: driver
+		})
+		model.save()
+			.done(function(response) {
+			})
+			.fail(function(error) {
+				alert('couldn\'t change the driver')
+				console.log(error)
+			})
+	},
+	savePickup: function(pickupData) {
+		var newPickup = new Pickup(pickupData)
+		newPickup.save()
+			.then(
+				function(response) {
+					console.log('Saved!')
+				},
+				function(err) {
+					console.log(err)
+				}
+			)
+	},
 	increaseStage: function(model) {
 		model.set({
 			stage: model.get('stage') + 1
@@ -163,10 +200,26 @@ var ACTIONS = {
 				console.log(error)
 			})
 	},
+	removeStage: function(model) {
+		model.set({
+			stage: 4
+		})
+		model.save()
+			.done(function(response) {
+				ACTIONS.fetchAllData()
+				ACTIONS.cancelDriverModal()
+			})
+			.fail(function(error) {
+				alert('couldn\'t change the stage')
+				console.log(error)
+			})
+	},
 	resetStudentsStage: function(collection) {
 		collection.forEach(function(model){
 			model.set({
-				stage: 1
+				stage: 1,
+				zone: 1,
+				currentDriver: ''
 			})
 			model.save()
 				.done(function(response) {
@@ -177,6 +230,11 @@ var ACTIONS = {
 					alert('couldn\'t change the stage')
 					console.log(error)
 			})
+		})
+	},
+	storeDriver: function(driver) {
+		STORE.set({
+			storeDriver: driver
 		})
 	},
 	showTeacherForm: function() {
@@ -196,6 +254,7 @@ var ACTIONS = {
 			showModal: false,
 			teacher_id: id
 		})
+		ACTIONS.fetchTeacherData()
 	},
 	changeTeacher: function() {
 		STORE.set({

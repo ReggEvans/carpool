@@ -3,8 +3,9 @@ const apiRouter = Router()
 let helpers = require('../config/helpers.js')
 
 let User = require('../db/schema.js').User
-var Teacher = require('../db/schema.js').Teacher
-var Student = require('../db/schema.js').Student
+let Teacher = require('../db/schema.js').Teacher
+let Student = require('../db/schema.js').Student
+let Pickup = require('../db/schema.js').Pickup
   
   //------------------------------------
   //User Routes
@@ -123,6 +124,43 @@ var Student = require('../db/schema.js').Student
           }
           response.json({
             msg: `Teacher ID ${request.params._id} has been deleted.`,
+            _id: request.params._id
+          })
+        })
+      })
+
+//------------------------------------
+// Pickup Routes
+//------------------------------------
+  apiRouter
+    .get('/pickup', function(req, res){
+      Pickup.find(req.query, function(err, results){
+        if(err) return res.json(err) 
+        res.json(results)
+      }).sort('-createdAt')
+    })
+    .get('/pickup/:student_id', function(request, response){
+      Pickup.find({student_id: request.params.student_id}, function(err, record){
+        if(err || !record ) return response.json(err) 
+        response.json(record)
+      })
+    })
+    .post('/pickup', function(request, response){
+      var newPickup = new Pickup(request.body)
+      newPickup.save(function(error, record){
+        if (error) {
+          return response.status(400).json(error)
+        }
+        response.json(record)
+      })
+    })
+    .delete('/pickup/:_id', function(request,response){
+        Pickup.remove({_id: request.params._id}, function(error) {
+          if (error) {
+            return response.status(400).json(error)
+          }
+          response.json({
+            msg: `Pickup ID ${request.params._id} has been deleted.`,
             _id: request.params._id
           })
         })

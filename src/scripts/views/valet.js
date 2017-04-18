@@ -55,7 +55,8 @@ var Valet = React.createClass({
 						<input type='text' ref='input' placeholder='Search by last name...' onKeyUp={this._handleType}/>
 						<button onClick={this._clearInput}>CLEAR</button>
 						<Profile showProfileModal={this.state.showProfileModal}
-								 studentModel={this.state.studentModel}/>
+								 studentModel={this.state.studentModel}
+								 pickupCollection={this.state.pickupCollection}/>
 						<Drivers showDriverModal={this.state.showDriverModal}
 								 studentModel={this.state.studentModel}/>
 						<StudentValet 
@@ -127,7 +128,7 @@ var StudentValetList = React.createClass({
 								</div>
 							</div>
 							<button onClick={this._handleDriverModal}>RIDE HAS ARRIVED</button>
-							<button onClick={this._handleProfile}>STUDENT PROFILE</button>
+							<button id='profile' onClick={this._handleProfile}>STUDENT PROFILE</button>
 							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>

@@ -61,7 +61,7 @@ var AllTeachers = React.createClass({
 var TeacherList = React.createClass({
 	render: function() {
 		return (
-			<div>
+			<div className='all-teacher-list'>
 				<p>{this.props.teacherModel.get('lastName')},&nbsp;{this.props.teacherModel.get('firstName')}</p>
 			</div>
 		)

@@ -65,10 +65,6 @@ button:focus {
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 
-.not-there {
-	display: none;
-}
-
 //=============================================================
 // HEADER
 //=============================================================
@@ -218,7 +214,7 @@ button:focus {
 		background-color: rgba(0,0,0,0.0);
 		cursor: pointer;
 		font-size: 13px;
-		font-family: 'Lato';
+		font-family: 'Lato' sans-serif;
 		padding: 4px;
 		width: 70px;
 		border-radius: 5px;
@@ -486,13 +482,9 @@ button:focus {
 		background-color: $red;
 		color: #fff;
 		font-size: 14px;
-		font-family: 'Lato';
+		font-family: 'Lato' sans-serif;
 		cursor: pointer;
 	}
-}
-
-.authDrivers {
-	text-transform: capitalize;
 }
 
 //=============================================================
@@ -563,6 +555,23 @@ button:focus {
 	vertical-align: middle;
 }
 
+.status-zone {
+	position: absolute;
+	height: 30px;
+	width: 30px;
+	// border-radius: 15px;
+	right: 20px;
+	top: 15px;
+	color: #ebebeb;
+	border: 2px solid $header-blue;
+	text-align: center;
+	padding-top: 3px;
+}
+
+#zone-transit {
+	border: 2px solid $header-green;
+}
+
 #small-transit {
 	font-size: 12px;
 	color: #00BA9B;
@@ -581,7 +590,7 @@ button:focus {
 
 
 //=============================================================
-// MyCLASS PAGE
+// MY CLASS PAGE
 //=============================================================
 .class-container {
 	position: relative;
@@ -631,6 +640,18 @@ button:focus {
 	}
 	@keyframes pulse {to {box-shadow: 0 0 0 25px rgba(232, 76, 61, 0);}}
 	
+	.class-zone-status {
+		width: 30px;
+		font-weight: 300;
+		padding: 5px;
+		color: #ebebeb;
+		background: rgba(0,0,0,0.6);
+		position: absolute;
+		top: 8px;
+		right: 10px;
+		z-index: 1;
+	}
+
 	#class-small-arrival {
 		font-size: 12px;
 		color: #ebebeb;
@@ -712,7 +733,6 @@ button:focus {
 	box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
 }
 
-
 //=============================================================
 // MODAL
 //=============================================================
@@ -764,10 +784,10 @@ button:focus {
 			margin-top: 30px;
 			margin-bottom: 30px;
 			transform: translate(-50%);
-			font-family: 'Lato';
+			font-family: 'Lato' sans-serif;
 			font-size: 14px;
 			color: #fff;
-			background: linear-gradient($header-blue, #007db3);
+			background: linear-gradient(#0095D3, #006b99);
 			border: none;
 			cursor: pointer;
 			border-radius: 5px;
@@ -775,7 +795,16 @@ button:focus {
 		}
 
 		#cancel {
-			background: linear-gradient($red, #ad1f32);
+			background: linear-gradient(#E74E3E, #CC2B19);
+		}
+
+		#profile {
+			background: linear-gradient($header-green, #00806a);
+		}
+		#inactive-button {
+			background: linear-gradient(#546B8B, #090b10);
+			color: #000;
+			cursor: auto;
 		}
 }
 
@@ -808,7 +837,6 @@ button:focus {
 	font-size: 18px;
 	color: #5e6c87;
 }
-
 
 // Authorized Drivers //
 .driver-list {
@@ -844,20 +872,140 @@ button:focus {
 //=============================================================
 // PROFILE MODAL
 //=============================================================
-
 .profileModal {
 	position: absolute;
 	display: block;
-	width: 90%;
-	height: 90%;
-	top: 5%;
 	left: 5%;
+	top: 5%;
+	min-width: 910px;
+	max-width: 910px;
+
 	border-radius: 5px;
 	background: linear-gradient(to right bottom, #515D75, #333A4A) no-repeat;
 	animation: popup ease-in .2s;
 	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.5),0 17px 50px 0 rgba(0,0,0,0.5);
 	z-index: 999;
+}
 
+.profile-container {
+	postion: relative;
+
+	.profile-close-button {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 64px;
+		height: 64px;
+		font-size: 20px;
+		background-color: $red;
+		color: #ebebeb;
+		border: none;
+	}
+
+	h4 {
+		background: linear-gradient(to bottom right, #00B4A5, #00A8B6);
+		padding: 15px;
+		color: #fff;
+		font-weight: 300;
+		text-transform: uppercase;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+	.profile-info {
+		display: inline-block;
+		vertical-align: top;
+		height: 100%;
+		width: 65%;
+		padding: 20px;
+
+		.profile-photo {
+			width: 200px;
+			height: 225px;
+			background-color: #1E2633;
+			display: inline-block;
+			margin-left: 20px;
+		}
+
+		.info-box-1 {
+			display: inline-block;
+			vertical-align: top;
+			margin-left: 50px;
+			width: 270px;
+			height: 225px;
+
+			p {
+				padding: 8px;
+				color: $icon-green;
+				font-weight: 300;
+
+				.info-white {
+					color: #ebebeb;
+					text-transform: capitalize;
+					font-weight: 300;
+				}
+			}
+		}
+		
+		.info-wrapper {
+			width: 100%;
+
+			.info-box-2 {
+				display: inline-block;
+				vertical-align: top;
+				padding: 10px 0;
+				width: 275px;
+
+				p {
+					padding: 8px;
+					color: $icon-green;
+					font-weight: 300;
+
+					.info-white {
+						color: #ebebeb;
+						text-transform: capitalize;
+						font-weight: 300;
+					}
+
+					#email {
+						text-transform: none;
+					}
+				}
+			}
+		}
+	}
+
+	.profile-history {
+		display: inline-block;
+		vertical-align: top;
+		height: 100%;
+		width: 35%;
+		padding: 20px;
+		background-color: #1E2633;
+
+		h6 {
+			font-weight: 300;
+			color: $icon-green;
+			text-align: center;
+			height: 40px;
+			text-transform: uppercase;
+			padding: 7px;
+			border-bottom: 1px solid #000;
+		}
+
+		.pickup-list {
+			margin-left: 20px;
+			width: 85%;
+
+			p {
+				padding: 8px 0;
+				color: #ebebeb;
+				font-weight: 300;
+				font-size: 14px;
+				text-transform: capitalize;
+			}
+		}
+	}
 }
 
 //=============================================================
@@ -873,7 +1021,7 @@ button:focus {
 	overflow: scroll;
 }
 
-.all-teacher-wrapper {
+.all-teacher-list {
 	
 	p {
 		font-weight: 300;
@@ -899,7 +1047,7 @@ button:focus {
 	overflow: scroll;
 }
 
-.all-student-wrapper {
+.all-student-list {
 
 	p {
 		font-weight: 300;
@@ -909,6 +1057,7 @@ button:focus {
 		border-bottom: 1px dashed #343c4b;
 		border-left: 5px solid $icon-green;
 		text-transform: capitalize;
+		cursor: pointer;
 	}
 }
 
@@ -934,7 +1083,7 @@ button:focus {
 	border-radius: 5px;
 	border: none;
 	font-size: 14px;
-	font-family: 'Lato';
+	font-family: 'Lato' sans-serif;
 	text-transform: uppercase;
 	cursor: pointer;
 }
@@ -950,7 +1099,7 @@ button:focus {
 	color: #fff;
 	border-radius: 5px;
 	border: none;
-	font-family: 'Lato';
+	font-family: 'Lato' sans-serif;
 	text-transform: uppercase;
 	cursor: pointer;
 	margin: 10px;
@@ -965,13 +1114,63 @@ button:focus {
 	color: #ebebeb;
 }
 
+/////
+
+.driverForm {
+	margin-top: 10px;
+}
+
 
 #zone {
-	width: 100%;
-	height: 30px;
-	background-color: rgba(0,0,0,0.5);
+	font-size: 14px;
+	width: 200px;
+	height: 40px;
+	background-color: $header-blue;
 	color: #fff;
 	border: none;
 	border-radius: none;
-	text-transform: uppercase;
+	margin-left: 100px;
+}
+
+.authDrivers {
+	text-transform: capitalize;
+}
+
+#drivers {
+	height: 450px;
+
+}
+
+
+#lowercase {
+	text-transform: lowercase;
+}
+
+//=============================================================
+// Media Queries
+//=============================================================
+@media (min-width: 1150px) {
+	.dash-buttons {
+		max-width: 1200px;
+    	min-width: 1200px;
+	}
+    .button {
+        width: 300px;
+    	height: 190px;
+
+    	p {
+    		font-size: 22px;
+    		margin-top: 68px;
+    		font-weight: 300;
+    	}
+    }
+    .active {
+    	margin-left: 35%;
+    	top: 150px;
+    }
+
+    .profileModal {
+    	left: 16%;
+    	top: 10%;
+    }
 }

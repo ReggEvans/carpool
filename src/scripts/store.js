@@ -1,6 +1,7 @@
 import Backbone from 'backbone'
 import {TeacherCollection} from './models/teacherModel'
 import {StudentCollection} from './models/studentModel'
+import {PickupCollection} from './models/pickupModel'
 
 var STORE = Object.assign({}, Backbone.Events, {
 	data: {
@@ -8,6 +9,7 @@ var STORE = Object.assign({}, Backbone.Events, {
 		searchTeachers: new TeacherCollection(),
 		studentCollection: new StudentCollection(),
 		searchStudents: new StudentCollection(),
+		pickupCollection: new PickupCollection(),
 		showLogin: true,
 		showRegister: false,
 		showModal: true,

@@ -3,6 +3,8 @@ import Backbone from 'backbone'
 import STORE from '../store'
 import ACTIONS from '../actions'
 
+import Profile from './profile'
+
 var Students = React.createClass({
 	componentWillMount: function() {
 		ACTIONS.fetchAllData()
@@ -35,6 +37,9 @@ var Students = React.createClass({
 					</div>
 				</div>
 				<div className='all-student-wrapper'>
+					<Profile showProfileModal={this.state.showProfileModal}
+							 studentModel={this.state.studentModel}
+							 pickupCollection={this.state.pickupCollection}/>
 					<AllStudents students={this.state.studentCollection} />
 				</div>
 			</div>
@@ -58,9 +63,12 @@ var AllStudents = React.createClass({
 })
 
 var StudentList = React.createClass({
+	_handleProfile: function() {
+		ACTIONS.showProfileModal(this.props.studentModel)	
+	},
 	render: function() {
 		return (
-			<div>
+			<div className='all-student-list' onClick={this._handleProfile}>
 				<p>{this.props.studentModel.get('lastName')},&nbsp;{this.props.studentModel.get('firstName')}</p>
 			</div>
 		)

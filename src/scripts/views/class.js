@@ -3,6 +3,7 @@ import Backbone from 'backbone'
 import STORE from '../store'
 import ACTIONS from '../actions'
 
+import Profile from './profile'
 import TeacherModal from './components/teacherModal'
 import MyClassModal from './components/myClassModal'
 import Header from './components/header'
@@ -42,6 +43,9 @@ var Class = React.createClass({
 						<p>{moment(date).format('MMMM Do YYYY')}</p>
 					</div>
 				</div>
+				<Profile showProfileModal={this.state.showProfileModal}
+						 studentModel={this.state.studentModel}
+						 pickupCollection={this.state.pickupCollection}/>
 				<TeacherModal 
 					teachers={this.state.teacherCollection}
 					modalState={this.state.showModal}
@@ -86,6 +90,13 @@ var StudentList = React.createClass({
 		  ACTIONS.increaseStage(this.props.studentModel)
 		  ACTIONS.unsetActiveID()
 	},
+	_handleRemoveStage: function() {
+		  ACTIONS.removeStage(this.props.studentModel)
+		  ACTIONS.unsetActiveID()
+	},
+	_handleProfile: function() {
+		ACTIONS.showProfileModal(this.props.studentModel)	
+	},
 	render: function() {
 		var valetPopUp = 'hidden'
 		var modalBackground = 'hidden'
@@ -99,6 +110,8 @@ var StudentList = React.createClass({
 					<div className={modalBackground}>
 						<div className={valetPopUp}>
 							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
+							<button onClick={this._handleRemoveStage}>NO PICKUP NEEDED</button>
+							<button id='profile' onClick={this._handleProfile}>STUDENT PROFILE</button>
 							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>
@@ -115,13 +128,15 @@ var StudentList = React.createClass({
 						<div className={valetPopUp}>
 							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
 							<button onClick={this._handleIncreaseStage}>ON THE WAY!</button>
+							<button id='profile' onClick={this._handleProfile}>STUDENT PROFILE</button>
 							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>
 					<div onClick={this._handleClick} className='class-student-list' id='stage-two'>
 						<div className='class-status-arrival'></div>
+						<div className='class-zone-status'>{this.props.studentModel.get('zone')}</div>
 						<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
-						<p id='class-small-arrival'>Your ride is here!</p>
+						<p id='class-small-arrival'>{this.props.studentModel.get('currentDriver')} <span id='lowercase'>is here!</span></p>
 					</div>
 				</div>
 			)
@@ -132,12 +147,15 @@ var StudentList = React.createClass({
 					<div className={modalBackground}>
 						<div className={valetPopUp}>
 							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
+							<button id='inactive-button'>GOING HOME</button>
+							<button id='profile' onClick={this._handleProfile}>STUDENT PROFILE</button>
 							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>
 					<div onClick={this._handleClick} className='class-student-list' id='stage-three'>
+						<div className='class-zone-status'>{this.props.studentModel.get('zone')}</div>
 						<p>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</p>
-						<p id='class-small-transit'>On the way!</p>
+						<p id='class-small-transit'>{this.props.studentModel.get('firstName')} <span id='lowercase'>is on the way!</span></p>
 					</div>
 				</div>
 			)
@@ -148,6 +166,7 @@ var StudentList = React.createClass({
 					<div className={modalBackground}>
 						<div className={valetPopUp}>
 							<h5>{this.props.studentModel.get('firstName')}&nbsp;{this.props.studentModel.get('lastName')}</h5>
+							<button id='profile' onClick={this._handleProfile}>STUDENT PROFILE</button>
 							<button id='cancel' onClick={ACTIONS.unsetActiveID}>CANCEL</button>
 						</div>
 					</div>
