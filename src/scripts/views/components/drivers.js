@@ -6,6 +6,7 @@ import ACTIONS from '../../actions'
 var Drivers = React.createClass({
 	_handleIncreaseStage: function() {
 		ACTIONS.increaseStage(this.props.studentModel)
+		
 	},
 	_handleData: function(driver) {
 		ACTIONS.saveDriver(driver, this.props.studentModel)
