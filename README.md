@@ -7,6 +7,13 @@ KinderQ is a pickup management system for early education schools. This full-sta
 ## Screenshot
 ![KinderQ Screen Shot](/dist/assets/images/kq_img_2.png)
 
+## Built With
+
+* [MongoDB](https://www.mongodb.com/what-is-mongodb) - Document database
+* [Express](https://expressjs.com/) -  Back-end web application framework
+* [React](https://facebook.github.io/react/) - Front-End web application framework
+* [Node.js](https://facebook.github.io/react/) - JavaScript runtime environment
+
 ## Installation
 ```
 git clone https://github.com/ReggEvans/carpool.git
