@@ -15,7 +15,7 @@ KinderQ is a pickup management system for early education schools. This full-sta
 * [Backbone](http://backbonejs.org/) - Model, Controller Framework
 * [Node.js](https://facebook.github.io/react/) - JavaScript runtime environment
 
-## Installation
+## Installation 
 ```
 git clone https://github.com/ReggEvans/carpool.git
 cd carpool
